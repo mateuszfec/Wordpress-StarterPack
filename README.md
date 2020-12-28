@@ -1,6 +1,6 @@
 ## Wordpress starter pack (for Wordpress websites) 
 
-**About:** Websites starter pack for Wordpress websites  
+**About:** Wordpress starter pack - for Wordpress websites  
 **Author:** Mateusz Feć  
 **Website**: www.mateuszfec.pl  
 **Linkedin:** www.linkedin.com/in/mateuszfec/  
