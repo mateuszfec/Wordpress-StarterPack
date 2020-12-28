@@ -1,10 +1,10 @@
 {
-  "name": "websites_starter",
-  "description": "Websites starter pack (for PHP websites)",
-  "version": "1.1.0",
+  "name": "wordpress_starter",
+  "description": "Websites starter pack (for Wordpress websites)",
+  "version": "1.0.0",
   "author": "Mateusz Feć",
   "license": "MIT",
-  "homepage": "https://github.com/mateuszfec/Websites-Starter",
+  "homepage": "https://github.com/mateuszfec/Wordpress-Starter ",
   "scripts": {
     "watch": "npm run gulp watch",
     "build": "npm run gulp build --prod",
@@ -12,10 +12,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mateuszfec/Websites-Starter"
+    "url": "https://github.com/mateuszfec/Wordpress-Starter "
   },
   "bugs": {
-    "url": "https://github.com/mateuszfec/Websites-Starter/issues"
+    "url": "https://github.com/mateuszfec/Wordpress-Starter/issues"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
