@@ -4,7 +4,7 @@
 **Author:** Mateusz Feć  
 **Website**: www.mateuszfec.pl  
 **Linkedin:** www.linkedin.com/in/mateuszfec/  
-**Repository:** https://github.com/mateuszfec/Wordpress-Starter
+**Repository:** https://github.com/mateuszfec/Wordpress-Starter  
 **Contribution:** feel free to contribute  
 **License:** MIT
 
