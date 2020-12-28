@@ -15,3 +15,4 @@
 * Normalize.css - **v8.0.1**
 * Bootstrap - **v5.0.0-beta1**
 * Foundation for Sites - **v6.6.3**
+* Font Awesome - **v5.15.1**
