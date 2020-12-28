@@ -8,6 +8,8 @@
 **Contribution:** feel free to contribute  
 **License:** MIT
 
+**Wordpress starter:** https://github.com/mateuszfec/Wordpress-Starter 
+
 ### Available libraries (with current versions)
 
 * Normalize.css - **v8.0.1**
