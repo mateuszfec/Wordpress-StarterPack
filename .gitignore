@@ -1,0 +1,9 @@
+# IDE + System
+.idea/
+.DS_Store
+
+# Node.js
+node_modules/
+
+# Build files
+build/
