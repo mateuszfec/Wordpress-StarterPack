@@ -1,14 +1,14 @@
-## Websites starter pack (for PHP websites) 
+## Wordpress starter pack (for Wordpress websites) 
 
-**About:** Websites starter pack for PHP websites  
+**About:** Websites starter pack for Wordpress websites  
 **Author:** Mateusz Feć  
 **Website**: www.mateuszfec.pl  
 **Linkedin:** www.linkedin.com/in/mateuszfec/  
-**Repository:** https://github.com/mateuszfec/Websites-Starter  
+**Repository:** https://github.com/mateuszfec/Wordpress-Starter
 **Contribution:** feel free to contribute  
 **License:** MIT
 
-**Wordpress starter:** https://github.com/mateuszfec/Wordpress-Starter 
+**Websites starter:** https://github.com/mateuszfec/Websites-Starter  
 
 ### Available libraries (with current versions)
 
