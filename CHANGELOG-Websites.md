@@ -1,5 +1,6 @@
 ### Websites starter changelog:
 
+* 1.3.1 - Build files are ignored by git
 * 1.3.0 - Destination dir: **build** > **assets**, support for static translations
 * 1.2.0 - Font Awesome support
 * 1.1.0 - Gulp support for js files, fonts & images

@@ -16,3 +16,5 @@
 * Bootstrap - **v5.0.0-beta1**
 * Foundation for Sites - **v6.6.3**
 * Font Awesome - **v5.15.1**
+
+**NOTE:** All project temporary names are prefixed by "**project-**" phrase
