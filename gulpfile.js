@@ -1,10 +1,18 @@
 'use strict';
 
+// GULP OPTIONS:
+// --prod      | minify and clean all code
+// --save      | save all temporary (build) files in assets directory
+// --nostrict  | no-strict mode for JavaScript code
+// --sync      | sync browser by Browsersync | Optional: --sync=http://your-proxy-to-domain.dev/
+// --port      | custom port for Browsersync | Default: 3000
+
 // Libraries
 const fs = require('fs');
 const del = require('del');
 const log = require('fancy-log');
 const chokidar = require('chokidar');
+const browserSync = require('browser-sync').create();
 
 // Gulp libraries
 const gulp = require('gulp');
@@ -23,12 +31,27 @@ const lessAutoPrefixer = require('less-plugin-autoprefix'), lessAutoPrefix = new
 // const gulpHtmlMin = require('gulp-htmlmin');
 
 // Globals
-const isProduction = !!process.argv.indexOf("--prod"),
-      cleanOldFiles = !!process.argv.indexOf("--save"),
-      disableStrictMode = !!process.argv.indexOf("--nostrict"),
-      logs = process.argv.indexOf("--log2") > 0 ? 2 : process.argv.indexOf("--log1") > 0 ? 1 : 0;
-
 let themeVariants = {};
+const isProduction = process.argv.indexOf("--prod") >= 0,
+      cleanOldFiles = process.argv.indexOf("--save") < 0,
+      disableStrictMode = process.argv.indexOf("--nostrict") >= 0,
+      runProxy = process.argv.findIndex(value => /^--sync/.test(value)) >=0 ? process.argv.find(value => /^--sync/.test(value)) : null,
+      proxyValue = runProxy !== null && runProxy.split('=')[1] ? runProxy.split('=')[1] : 'http://localhost/',
+      portParameter = process.argv.findIndex(value => /^--port/.test(value)) >=0 ? process.argv.find(value => /^--port/.test(value)) : null,
+      portValue = portParameter !== null && portParameter.split('=')[1] ? portParameter.split('=')[1] : 3000,
+      logs = process.argv.indexOf("--log2") > 0 ? 2 : process.argv.indexOf("--log1") > 0 ? 1 : 0,
+      browserSyncOptions = {
+          watch: true,
+          watchOptions: {
+              ignoreInitial: true
+          },
+          files: ['assets/**/*', '**/*.php', '**/*.html']
+      };
+
+if (runProxy){
+    browserSyncOptions.proxy = proxyValue;
+    browserSyncOptions.port = portValue || 3000;
+}
 
 function watch(){
     const stylesWatcher = chokidar.watch([
@@ -37,13 +60,16 @@ function watch(){
     const jsWatcher = chokidar.watch([`.dev/js/**/*.js`]);
     const assetsWatcher = chokidar.watch([`./dev/images/**/*`, `./dev/fonts/**/*`]);
 
+    if (runProxy) browserSync.init(browserSyncOptions);
+
     stylesWatcher.on('ready', async () => {
         log.info("Starting - Initial build...");
         await cleanAll();
         await fonts();
         await images();
-        await stylesCompiler();
         await javaScript();
+        await stylesCompiler();
+        await runBrowserSync();
         log.info("Finished - Waiting for changes...");
     });
 
@@ -51,6 +77,7 @@ function watch(){
         log.info("Starting - Styles compiler...");
         await cleanStyles();
         await stylesCompiler();
+        await runBrowserSync();
         log.info("Finished - Waiting for changes...");
     });
 
@@ -58,6 +85,7 @@ function watch(){
         log.info("Starting - JS compiler...");
         await cleanJavaScript();
         await javaScript();
+        await runBrowserSync();
         log.info("Finished - Waiting for changes...");
     });
 
@@ -65,6 +93,7 @@ function watch(){
         log.info("Starting - ASSETS (images + fonts) compiler...");
         await fonts();
         await images();
+        await runBrowserSync();
         log.info("Finished - Waiting for changes...");
     });
 }
@@ -87,6 +116,20 @@ async function stylesCompiler() {
     }
 
     if (logs >= 1) log("Finished - All CSS files are created successfully");
+}
+
+async function runBrowserSync(){
+    if (runProxy){
+        return await new Promise((resolve, reject) => {
+            gulp.src('*')
+                .pipe(browserSync.stream())
+                .on("error", (err) => { reject(err) })
+                .on("finish", ()=>{
+                    if (logs >= 2) log(`Finished - Browsersync finished`);
+                    resolve(true);
+                });
+        });
+    } else return Promise.resolve();
 }
 
 async function concatVariantStyles (type, variant) {
