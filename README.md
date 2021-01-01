@@ -18,3 +18,13 @@
 * Font Awesome - **v5.15.1**
 
 **NOTE:** All project temporary names are prefixed by "**project-**" phrase
+
+### Gulp tasks parameters
+
+| Param       | param description                                                                  |
+| ----------- |:----------------------------------------------------------------------------------:|
+| --prod      | minify and clean all code                                                          |
+| --save      | save all temporary (build) files in assets directory                               |
+| --nostrict  | no-strict mode for JavaScript code                                                 |
+| --sync      | use Browsersync, **optional:** --sync=http://your-proxy-to-domain.dev/             |
+| --port      | custom port for Browsersync, **default:** 3000                                     |
