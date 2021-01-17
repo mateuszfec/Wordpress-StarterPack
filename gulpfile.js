@@ -7,6 +7,17 @@
 // --sync      | sync browser by Browsersync | Optional: --sync=http://your-proxy-to-domain.dev/
 // --port      | custom port for Browsersync | Default: 3000
 
+// CSS preprocessors to use by Gulp
+const enableSASS = true;
+const enableLESS = true;
+const enableStylus = true;
+
+// JS libraries to build by Gulp
+const jsLibraries = [
+    './dev/js/**/*',
+    '!./dev/js/*.js'
+];
+
 // Libraries
 const fs = require('fs');
 const del = require('del');
@@ -57,7 +68,7 @@ function watch(){
     const stylesWatcher = chokidar.watch([
         `./dev/less/**/*.less`, `./dev/sass/**/*.scss`, `./dev/stylus/**/*.styl`, `./dev/css/**/*.css`
     ]);
-    const jsWatcher = chokidar.watch([`.dev/js/**/*.js`]);
+    const jsWatcher = chokidar.watch([`./dev/js/**/*.js`]);
     const assetsWatcher = chokidar.watch([`./dev/images/**/*`, `./dev/fonts/**/*`]);
 
     if (runProxy) browserSync.init(browserSyncOptions);
@@ -67,8 +78,9 @@ function watch(){
         await cleanAll();
         await fonts();
         await images();
-        await javaScript();
         await stylesCompiler();
+        await javaScript();
+        await javaScriptLibraries();
         await runBrowserSync();
         log.info("Finished - Waiting for changes...");
     });
@@ -85,6 +97,7 @@ function watch(){
         log.info("Starting - JS compiler...");
         await cleanJavaScript();
         await javaScript();
+        await javaScriptLibraries();
         await runBrowserSync();
         log.info("Finished - Waiting for changes...");
     });
@@ -99,13 +112,13 @@ function watch(){
 }
 
 async function stylesCompiler() {
-    prepareVariants('sass');
-    prepareVariants('less');
-    prepareVariants('stylus');
+    if (enableSASS) prepareVariants('sass');
+    if (enableLESS) prepareVariants('less');
+    if (enableStylus) prepareVariants('stylus');
 
-    await runFunctionOnVariant(sassCompiler);
-    await runFunctionOnVariant(lessCompiler);
-    await runFunctionOnVariant(stylusCompiler);
+    if (enableSASS) await runFunctionOnVariant(sassCompiler);
+    if (enableLESS) await runFunctionOnVariant(lessCompiler);
+    if (enableStylus) await runFunctionOnVariant(stylusCompiler);
 
     await runFunctionOnVariant(concatVariantStyles);
     if (logs >= 1) log("Finished - All variants are concatenated successfully");
@@ -282,7 +295,7 @@ async function concatIfExist(directory, source) {
 
 function javaScript() {
     return new Promise((resolve, reject) => {
-        gulp.src('./dev/js/*.js')
+        gulp.src(['./dev/js/*.js', '!./dev/js/**/*.min.js'])
             .pipe(gulpIf(!isProduction, gulpSourcemaps.init({loadMaps: true})))
                 .pipe(gulpIf(isProduction, stripDebug()))
                 .pipe(gulpIf(!disableStrictMode, babel()))
@@ -300,6 +313,22 @@ function javaScript() {
     });
 }
 
+function javaScriptLibraries() {
+    if (jsLibraries && jsLibraries.length > 0){
+        return new Promise((resolve, reject) => {
+            gulp.src(jsLibraries)
+                .pipe(gulpIf(!isProduction, gulpSourcemaps.init({loadMaps: true})))
+                .pipe(gulpIf(!isProduction, gulpSourcemaps.write('.')))
+                .pipe(gulp.dest('./assets/js'))
+                .on("error", (err) => { reject(err) })
+                .on("finish", ()=>{
+                    if (logs >= 1) log("Finished - All JS libraries files are copied successfully");
+                    resolve(true);
+                });
+        });
+    } else return Promise.resolve();
+}
+
 // function html() {
 //     return gulp.src(['./*.html','./*.php'])
 //         .pipe(htmlMIN({
@@ -311,7 +340,7 @@ function javaScript() {
 
 function fonts(){
     return new Promise((resolve, reject) => {
-        gulp.src([`.dev/fonts/**/*`])
+        gulp.src(`./dev/fonts/**/*`)
             .pipe(gulp.dest(`./assets/fonts`))
             .on("error", (err) => { reject(err) })
             .on("finish", ()=>{
@@ -323,7 +352,7 @@ function fonts(){
 
 function images(){
     return new Promise((resolve, reject) => {
-        gulp.src([`./dev/images/**/*`])
+        gulp.src(`./dev/images/**/*`)
             .pipe(gulp.dest(`./assets/images`))
             .on("error", (err) => { reject(err) })
             .on("finish", ()=>{
@@ -358,10 +387,10 @@ function cleanJavaScript(){
 }
 
 exports.watch = watch;
-exports.build = gulp.series(cleanAll, images, fonts, stylesCompiler, javaScript);
+exports.build = gulp.series(cleanAll, images, fonts, stylesCompiler, javaScript, javaScriptLibraries);
 exports.clean = cleanAll;
 exports.assets = gulp.series(images, fonts);
 exports.styles = gulp.series(cleanStyles, stylesCompiler);
-exports.js = gulp.series(cleanJavaScript, javaScript);
+exports.js = gulp.series(cleanJavaScript, javaScript, javaScriptLibraries);
 
 // exports.html = html
