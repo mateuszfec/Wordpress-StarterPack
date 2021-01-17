@@ -1,7 +1,7 @@
 {
   "name": "wordpress_starter",
   "description": "Wordpress starter pack (for Wordpress websites)",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "author": "Mateusz Feć",
   "license": "MIT",
   "homepage": "https://github.com/mateuszfec/Wordpress-Starter",
