@@ -1,5 +1,6 @@
 ### Wordpress starter changelog:
 
+* 1.6.0 - jQuery dependencies are removed from page front-end
 * 1.5.0 - JS files support + Gulp path fixes + Base Wordpress structure
 * 1.4.0 - Update from Websites starter v1.4.0 (Gulp + Browsersync)
 * 1.3.0 - Wordpress file structure
