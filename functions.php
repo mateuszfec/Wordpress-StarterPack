@@ -35,6 +35,15 @@ function load_assets_in_footer() {
         // ...
     }
 }
-add_action('wp_footer', 'load_assets_in_footer');
+add_action('init', 'load_assets_in_footer');
+
+// ------------------------------------- jQuery - disable on front-end (default) ---------------------------------------
+function remove_jQuery_from_site() {
+    if (!is_admin()) {
+        wp_deregister_script('jquery');
+        wp_register_script('jquery', false);
+    }
+}
+add_action('init', 'remove_jQuery_from_site');
 
 
