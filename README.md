@@ -8,7 +8,7 @@
 **Contribution:** feel free to contribute  
 **License:** MIT
 
-**Wordpress starter:** https://github.com/mateuszfec/Wordpress-Starter 
+**Wordpress starter:** https://github.com/mateuszfec/Wordpress-Starter
 
 ### Available libraries (with current versions)
 
@@ -16,6 +16,9 @@
 * Bootstrap - **v5.0.0-beta1**
 * Foundation for Sites - **v6.6.3**
 * Font Awesome - **v5.15.1**
+* PhotoSwipe - **v4.1.3**
+* Glide - **v3.3.0**
+* Swiper - **v6.5.0**
 
 **NOTE:** All project temporary names are prefixed by "**project-**" phrase
 
