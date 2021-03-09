@@ -1,6 +1,6 @@
-## Websites starter pack (for PHP websites) 
+## Websites starter pack
 
-**About:** Websites starter pack for PHP websites  
+**About:** Websites starter pack  
 **Author:** Mateusz Feć  
 **Website**: www.mateuszfec.pl  
 **Linkedin:** www.linkedin.com/in/mateuszfec/  
@@ -24,7 +24,7 @@
 
 ### Gulp tasks parameters
 
-| Param       | param description                                                                  |
+| Param       | params description                                                                  |
 | ----------- |:----------------------------------------------------------------------------------:|
 | --prod      | minify and clean all code                                                          |
 | --save      | save all temporary (build) files in assets directory                               |
