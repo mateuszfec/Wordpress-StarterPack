@@ -1,6 +1,6 @@
-## Wordpress starter pack (Websites starter for Wordpress) 
+## Wordpress starter pack
 
-**About:** Websites starter pack for Wordpress websites  
+**About:** Wordpress starter pack
 **Author:** Mateusz Feć  
 **Website**: www.mateuszfec.pl  
 **Linkedin:** www.linkedin.com/in/mateuszfec/  
@@ -16,12 +16,15 @@
 * Bootstrap - **v5.0.0-beta1**
 * Foundation for Sites - **v6.6.3**
 * Font Awesome - **v5.15.1**
+* PhotoSwipe - **v4.1.3**
+* Glide - **v3.3.0**
+* Swiper - **v6.5.0**
 
 **NOTE:** All project temporary names are prefixed by "**project-**" phrase
 
 ### Gulp tasks parameters
 
-| Param       | param description                                                                  |
+| Param       | params description                                                                  |
 | ----------- |:----------------------------------------------------------------------------------:|
 | --prod      | minify and clean all code                                                          |
 | --save      | save all temporary (build) files in assets directory                               |
