@@ -1,5 +1,6 @@
 ### Websites starter changelog:
 
+* 1.6.0 - PhotoSwipe, Glide, Swiper libraries integration
 * 1.5.0 - JS files support + Gulp path fixes
 * 1.4.0 - Gulp has support for Browsersync
 * 1.3.1 - Build files are ignored by git
